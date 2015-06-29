@@ -12,7 +12,7 @@
 */
 
 #ifdef WIN32
-#include <math.h>
+#include <cmath>
 #include <windows.h>
 #else
 #include <cmath>

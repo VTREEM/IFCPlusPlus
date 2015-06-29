@@ -42,9 +42,9 @@ namespace {
 	  
 	  if( cp < 0 )
 	  {
-		  if( abs( cp ) < 0.00000001 )
+		  if( std::abs( cp ) < 0.00000001 )
 		  {
-			  std::cout << "grahamScan: abs( cp ) < 0.000001" << std::endl;
+			  std::cout << "grahamScan: std::abs( cp ) < 0.000001" << std::endl;
 		  }
 		  return false;
 	  }

@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include <math.h>
+#include <cmath>
 
 #ifndef M_SQRT_3
 #define M_SQRT_3 1.73205080756887729352

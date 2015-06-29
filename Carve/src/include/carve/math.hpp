@@ -21,7 +21,7 @@
 
 #include <carve/math_constants.hpp>
 
-#include <math.h>
+#include <cmath>
 
 namespace carve {
   namespace geom {

@@ -363,7 +363,7 @@ public:
 		const osg::Group::ParentList& vec_parents = group->getParents();
 		for( size_t ii = 0; ii < vec_parents.size(); ++ii )
 		{
-			osg::Group* parent = vec_parents[ii];
+			osg::Group* parent = dynamic_cast < osg::Group* > (vec_parents[ii]);
 			if( parent )
 			{
 				const std::string parent_name = parent->getName();

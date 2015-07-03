@@ -44,7 +44,7 @@ public:
 		//\brief Default constructor.
 		Message()
 		{
-			m_message_type = MessageType::MESSAGE_TYPE_UNKNOWN;
+			m_message_type = MESSAGE_TYPE_UNKNOWN;
 			m_reporting_function = "";
 			m_entity = nullptr;
 			m_progress_value = -1;
@@ -155,7 +155,7 @@ public:
 	virtual void progressValueCallback( double progress_value, const std::string& progress_type )
 	{
 		shared_ptr<Message> progress_message( new Message() );
-		progress_message->m_message_type = MessageType::MESSAGE_TYPE_PROGRESS_VALUE;
+		progress_message->m_message_type = MESSAGE_TYPE_PROGRESS_VALUE;
 		progress_message->m_progress_value = progress_value;
 		progress_message->m_progress_type.assign( progress_type.c_str() );
 		messageCallback( progress_message );
@@ -163,7 +163,7 @@ public:
 	virtual void progressTextCallback( const std::wstring& progress_text )
 	{
 		shared_ptr<Message> progress_message( new Message() );
-		progress_message->m_message_type = MessageType::MESSAGE_TYPE_PROGRESS_TEXT;
+		progress_message->m_message_type = MESSAGE_TYPE_PROGRESS_TEXT;
 		progress_message->m_progress_value = -1;
 		progress_message->m_progress_text.assign( progress_text.c_str() );
 		messageCallback( progress_message );

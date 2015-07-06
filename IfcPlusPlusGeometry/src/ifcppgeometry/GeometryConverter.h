@@ -574,7 +574,7 @@ public:
 
 	//\brief creates geometry objects from an IfcProduct object
 	// caution: when using OpenMP, this method runs in parallel threads, so every write access to member variables needs a write lock
-	void convertIfcProduct( shared_ptr<ProductShapeInputData>& product_shape )
+	virtual void convertIfcProduct( shared_ptr<ProductShapeInputData>& product_shape )
 	{
 		shared_ptr<IfcProduct> ifc_product( product_shape->m_ifc_product );
 		if( !ifc_product )

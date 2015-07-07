@@ -39,7 +39,7 @@ protected:
 	//\brief StateSet caching and re-use
 	std::vector<osg::ref_ptr<osg::StateSet> > m_vec_existing_statesets;
 	//\brief Default stateset for entities missing materials
-	std::map<std::string, shared_ptr<AppearanceData>> m_map_default_materials;
+	std::map<std::string, shared_ptr<AppearanceData> > m_map_default_materials;
 
 #ifdef IFCPP_OPENMP
 	Mutex m_writelock_appearance_cache;
@@ -929,9 +929,9 @@ public:
 		appDataWall->m_color_ambient.y = 0.2f;
 		appDataWall->m_color_ambient.z = 0.2f;
 		appDataWall->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWallStdCase("IfcWallStandardCase", appDataWall);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairWallStdCase("IfcWallStandardCase", appDataWall);
 		m_map_default_materials.insert(pairWallStdCase);
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWall("IfcWall", appDataWall);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairWall("IfcWall", appDataWall);
 		m_map_default_materials.insert(pairWall);
 
 		// Site
@@ -945,7 +945,7 @@ public:
 		appDataSite->m_color_ambient.y = 0.2f;
 		appDataSite->m_color_ambient.z = 0.2f;
 		appDataSite->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairSite("IfcSite", appDataSite);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairSite("IfcSite", appDataSite);
 		m_map_default_materials.insert(pairSite);
 
 		// Slab
@@ -959,7 +959,7 @@ public:
 		appDataSlab->m_color_ambient.y = 0.2f;
 		appDataSlab->m_color_ambient.z = 0.2f;
 		appDataSlab->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairSlab("IfcSlab", appDataSlab);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairSlab("IfcSlab", appDataSlab);
 		m_map_default_materials.insert(pairSlab);
 
 		// Window
@@ -973,7 +973,7 @@ public:
 		appDataWindow->m_color_ambient.y = 0.2f;
 		appDataWindow->m_color_ambient.z = 0.2f;
 		appDataWindow->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWindow("IfcWindow", appDataWindow);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairWindow("IfcWindow", appDataWindow);
 		m_map_default_materials.insert(pairWindow);
 
 		// Door
@@ -987,7 +987,7 @@ public:
 		appDataDoor->m_color_ambient.y = 0.2f;
 		appDataDoor->m_color_ambient.z = 0.2f;
 		appDataDoor->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairDoor("IfcDoor", appDataDoor);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairDoor("IfcDoor", appDataDoor);
 		m_map_default_materials.insert(pairDoor);
 
 		// Beam
@@ -1001,7 +1001,7 @@ public:
 		appDataBeam->m_color_ambient.y = 0.2f;
 		appDataBeam->m_color_ambient.z = 0.2f;
 		appDataBeam->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairBeam("IfcBeam", appDataBeam);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairBeam("IfcBeam", appDataBeam);
 		m_map_default_materials.insert(pairBeam);
 
 		// Railing, Member
@@ -1015,9 +1015,9 @@ public:
 		appDataRailing->m_color_ambient.y = 0.2f;
 		appDataRailing->m_color_ambient.z = 0.2f;
 		appDataRailing->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairRailing("IfcRailing", appDataRailing);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairRailing("IfcRailing", appDataRailing);
 		m_map_default_materials.insert(pairRailing);
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairMember("IfcMember", appDataRailing);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairMember("IfcMember", appDataRailing);
 		m_map_default_materials.insert(pairMember);
 
 		// Plate
@@ -1031,7 +1031,7 @@ public:
 		appDataPlate->m_color_ambient.y = 0.2f;
 		appDataPlate->m_color_ambient.z = 0.2f;
 		appDataPlate->m_color_ambient.w = 1.0f;
-		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairPlate("IfcPlate", appDataPlate);
+		std::map<std::string, shared_ptr<AppearanceData> >::value_type pairPlate("IfcPlate", appDataPlate);
 		m_map_default_materials.insert(pairPlate);
 	}
 
@@ -1160,7 +1160,7 @@ public:
 
 	osg::StateSet* getDefaultStateSet( const std::string& classname )
 	{
-		std::map<std::string, shared_ptr<AppearanceData>>::iterator it = m_map_default_materials.find(classname);
+		std::map<std::string, shared_ptr<AppearanceData> >::iterator it = m_map_default_materials.find(classname);
 		if (it != m_map_default_materials.end())
 		{
 			return convertToOSGStateSet(it->second);

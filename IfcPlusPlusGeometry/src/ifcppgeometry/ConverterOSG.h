@@ -882,11 +882,6 @@ public:
 		{
 			product_switch->setStateSet( m_glass_stateset );
 		}
-		else if( dynamic_pointer_cast<IfcCurtainWall>( ifc_product ) || dynamic_pointer_cast<IfcWindow>( ifc_product ) )
-		{
-			// TODO: make only glass part of window transparent
-			product_switch->setStateSet( m_glass_stateset );
-		}
 
 		// TODO: if no color or material is given, set color 231/219/169 for walls, 140/140/140 for slabs 
 

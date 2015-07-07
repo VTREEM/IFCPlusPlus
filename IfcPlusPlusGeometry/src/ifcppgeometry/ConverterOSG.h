@@ -886,7 +886,6 @@ public:
 		{
 			// TODO: make only glass part of window transparent
 			product_switch->setStateSet( m_glass_stateset );
-			GeomUtils::setMaterialAlpha( product_switch, 0.6f );
 		}
 
 		// TODO: if no color or material is given, set color 231/219/169 for walls, 140/140/140 for slabs 

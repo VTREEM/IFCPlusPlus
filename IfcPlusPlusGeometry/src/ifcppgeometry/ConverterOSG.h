@@ -1126,8 +1126,13 @@ public:
 			return convertToOSGStateSet(it->second);
 		}
 
-		// Meh, no default material defined for that classname
-		return NULL;
+		// Meh, no default material defined for that classname, let's use some vanilla material
+		shared_ptr<AppearanceData> appDataDefault (new AppearanceData(-1));
+		appDataDefault->m_color_diffuse.x = 0.6f;
+		appDataDefault->m_color_diffuse.y = 0.6f;
+		appDataDefault->m_color_diffuse.z = 0.6f;
+		appDataDefault->m_color_diffuse.w = 1.0f;
+		return convertToOSGStateSet(appDataDefault);
 	}
 
 };

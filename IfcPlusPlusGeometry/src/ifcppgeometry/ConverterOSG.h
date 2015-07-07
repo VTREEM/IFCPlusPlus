@@ -38,6 +38,9 @@ protected:
 	osg::ref_ptr<osg::StateSet>		m_glass_stateset;
 	//\brief StateSet caching and re-use
 	std::vector<osg::ref_ptr<osg::StateSet> > m_vec_existing_statesets;
+	//\brief Default stateset for entities missing materials
+	std::map<std::string, shared_ptr<AppearanceData>> m_map_default_materials;
+
 #ifdef IFCPP_OPENMP
 	Mutex m_writelock_appearance_cache;
 #endif
@@ -801,6 +804,11 @@ public:
 					}
 				}
 			}
+			else
+			{
+				osg::StateSet* item_default_stateset = getDefaultStateSet( ifc_product->className() );
+				item_group->setStateSet( item_default_stateset );
+			}
 
 			// If anything has been created, add it to the product group
 			if( item_group->getNumChildren() > 0 )
@@ -914,12 +922,94 @@ public:
 			);
 	}
 
+	void registerDefaultMaterials()
+	{
+		// Walls
+		shared_ptr<AppearanceData> appDataWall (new AppearanceData(-1));
+		appDataWall->m_color_diffuse.x = 0.9f;
+		appDataWall->m_color_diffuse.y = 0.9f;
+		appDataWall->m_color_diffuse.z = 0.9f;
+		appDataWall->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWallStdCase("IfcWallStandardCase", appDataWall);
+		m_map_default_materials.insert(pairWallStdCase);
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWall("IfcWall", appDataWall);
+		m_map_default_materials.insert(pairWall);
+
+		// Site
+		shared_ptr<AppearanceData> appDataSite (new AppearanceData(-1));
+		appDataSite->m_color_diffuse.x = 0.75f;
+		appDataSite->m_color_diffuse.y = 0.8f;
+		appDataSite->m_color_diffuse.z = 0.65f;
+		appDataSite->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairSite("IfcSite", appDataSite);
+		m_map_default_materials.insert(pairSite);
+
+		// Slab
+		shared_ptr<AppearanceData> appDataSlab (new AppearanceData(-1));
+		appDataSlab->m_color_diffuse.x = 0.4f;
+		appDataSlab->m_color_diffuse.y = 0.4f;
+		appDataSlab->m_color_diffuse.z = 0.4f;
+		appDataSlab->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairSlab("IfcSlab", appDataSlab);
+		m_map_default_materials.insert(pairSlab);
+
+		// Window
+		shared_ptr<AppearanceData> appDataWindow (new AppearanceData(-1));
+		appDataWindow->m_color_diffuse.x = 0.75f;
+		appDataWindow->m_color_diffuse.y = 0.8f;
+		appDataWindow->m_color_diffuse.z = 0.75f;
+		appDataWindow->m_color_diffuse.w = 0.7f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairWindow("IfcWindow", appDataWindow);
+		m_map_default_materials.insert(pairWindow);
+
+		// Door
+		shared_ptr<AppearanceData> appDataDoor (new AppearanceData(-1));
+		appDataDoor->m_color_diffuse.x = 0.55f;
+		appDataDoor->m_color_diffuse.y = 0.3f;
+		appDataDoor->m_color_diffuse.z = 0.15f;
+		appDataDoor->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairDoor("IfcDoor", appDataDoor);
+		m_map_default_materials.insert(pairDoor);
+
+		// Beam
+		shared_ptr<AppearanceData> appDataBeam (new AppearanceData(-1));
+		appDataBeam->m_color_diffuse.x = 0.75f;
+		appDataBeam->m_color_diffuse.y = 0.7f;
+		appDataBeam->m_color_diffuse.z = 0.7f;
+		appDataBeam->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairBeam("IfcBeam", appDataBeam);
+		m_map_default_materials.insert(pairBeam);
+
+		// Railing, Member
+		shared_ptr<AppearanceData> appDataRailing (new AppearanceData(-1));
+		appDataRailing->m_color_diffuse.x = 0.65f;
+		appDataRailing->m_color_diffuse.y = 0.6f;
+		appDataRailing->m_color_diffuse.z = 0.6f;
+		appDataRailing->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairRailing("IfcRailing", appDataRailing);
+		m_map_default_materials.insert(pairRailing);
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairMember("IfcMember", appDataRailing);
+		m_map_default_materials.insert(pairMember);
+
+		// Plate
+		shared_ptr<AppearanceData> appDataPlate(new AppearanceData(-1));
+		appDataPlate->m_color_diffuse.x = 0.8f;
+		appDataPlate->m_color_diffuse.y = 0.8f;
+		appDataPlate->m_color_diffuse.z = 0.8f;
+		appDataPlate->m_color_diffuse.w = 1.0f;
+		std::map<std::string, shared_ptr<AppearanceData>>::value_type pairPlate("IfcPlate", appDataPlate);
+		m_map_default_materials.insert(pairPlate);
+	}
+
+
 	void clearAppearanceCache()
 	{
 #ifdef IFCPP_OPENMP
 		ScopedLock lock( m_writelock_appearance_cache );
 #endif
 		m_vec_existing_statesets.clear();
+	
+		registerDefaultMaterials();
 	}
 
 	osg::StateSet* convertToOSGStateSet( const shared_ptr<AppearanceData>& appearence )
@@ -1033,4 +1123,17 @@ public:
 		m_vec_existing_statesets.push_back( stateset );
 		return stateset;
 	}
+
+	osg::StateSet* getDefaultStateSet( const std::string& classname )
+	{
+		std::map<std::string, shared_ptr<AppearanceData>>::iterator it = m_map_default_materials.find(classname);
+		if (it != m_map_default_materials.end())
+		{
+			return convertToOSGStateSet(it->second);
+		}
+
+		// Meh, no default material defined for that classname
+		return NULL;
+	}
+
 };

@@ -47,7 +47,7 @@ ViewController::ViewController()
 	m_material_default->setDiffuse( osg::Material::FRONT_AND_BACK, osg::Vec4( 0.8, 0.82, 0.84, 0.3f ) );
 	m_material_default->setSpecular( osg::Material::FRONT_AND_BACK, osg::Vec4f( 0.02f, 0.025f, 0.03f, 0.03f ) );
 	m_material_default->setShininess( osg::Material::FRONT_AND_BACK, m_shinyness );
-	m_material_default->setColorMode( osg::Material::SPECULAR );
+	m_material_default->setColorMode( osg::Material::DIFFUSE );
 	m_material_default->setTransparency( osg::Material::FRONT_AND_BACK, 0.7f );
 
 	osg::LightModel* light_model = new osg::LightModel();
@@ -67,7 +67,7 @@ ViewController::ViewController()
 	material_selected->setDiffuse( osg::Material::FRONT_AND_BACK, osg::Vec4f( 0.4f, 0.92f, 0.92f, 0.5f ) );
 	material_selected->setSpecular( osg::Material::FRONT_AND_BACK, osg::Vec4f( 0.3f, 0.35f, 0.3f, 1.0f ) );
 	material_selected->setShininess( osg::Material::FRONT_AND_BACK, m_shinyness );
-	material_selected->setColorMode( osg::Material::SPECULAR );
+	material_selected->setColorMode( osg::Material::DIFFUSE );
 	m_stateset_selected = new osg::StateSet();
 	m_stateset_selected->setAttribute( material_selected, osg::StateAttribute::OVERRIDE | osg::StateAttribute::ON );
 

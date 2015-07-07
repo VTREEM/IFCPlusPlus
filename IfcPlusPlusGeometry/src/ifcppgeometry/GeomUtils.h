@@ -496,7 +496,7 @@ namespace GeomUtils
 				//mat->setSpecular( osg::Material::FRONT_AND_BACK, osg::Vec4( specular.r(), specular.g(), specular.b(), transparency ) );
 
 				//mat->setShininess( osg::Material::FRONT_AND_BACK, 64.f );
-				//mat->setColorMode( osg::Material::SPECULAR );
+				//mat->setColorMode( osg::Material::DIFFUSE );
 			}
 		}
 		osg::Group* group = dynamic_cast<osg::Group*>( node );

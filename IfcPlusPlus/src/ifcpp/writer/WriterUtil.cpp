@@ -11,7 +11,7 @@
  * OpenSceneGraph Public License for more details.
  */
 
-#include <math.h>
+#include <cmath>
 #include "WriterUtil.h"
 #include <sstream>
 

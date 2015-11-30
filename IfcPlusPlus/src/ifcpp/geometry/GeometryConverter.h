@@ -371,7 +371,7 @@ public:
 		const osg::Group::ParentList& vec_parents = group->getParents();
 		for( size_t ii = 0; ii < vec_parents.size(); ++ii )
 		{
-			osg::Group* parent = vec_parents[ii];
+			osg::Group* parent = dynamic_cast < osg::Group* > (vec_parents[ii]);
 			if( parent )
 			{
 				const std::string parent_name = parent->getName();
@@ -586,7 +586,7 @@ public:
 
 	//\brief method convertIfcProduct: Creates geometry objects (meshset with connected vertex-edge-face graph) from an IfcProduct object
 	// caution: when using OpenMP, this method runs in parallel threads, so every write access to member variables needs a write lock
-	void convertIfcProduct( shared_ptr<ProductShapeInputData>& product_shape )
+	virtual void convertIfcProduct( shared_ptr<ProductShapeInputData>& product_shape )
 	{
 		shared_ptr<IfcProduct> ifc_product( product_shape->m_ifc_product );
 		if( !ifc_product )

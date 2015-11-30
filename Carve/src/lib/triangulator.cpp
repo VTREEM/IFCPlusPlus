@@ -122,8 +122,10 @@ namespace {
     std::vector<vertex_info *> queue;
 
     void checkheap() {
-#ifdef __GNUC__
-      CARVE_ASSERT(std::__is_heap(queue.begin(), queue.end(), vertex_info_ordering()));
+#if defined _LIBCPP_VERSION
+        CARVE_ASSERT(std::is_heap(queue.begin(), queue.end(), vertex_info_ordering()));
+#elif defined __GNUC__
+        CARVE_ASSERT(std::__is_heap(queue.begin(), queue.end(), vertex_info_ordering()));
 #endif
     }
 

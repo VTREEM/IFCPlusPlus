@@ -13,6 +13,8 @@
 
 #pragma once
 
+#include <ciso646> // Detect vendor-specific macros.
+
 #if _MSC_VER >= 1600
 
 #include <memory>
@@ -20,7 +22,7 @@ using std::tr1::shared_ptr;
 using std::tr1::weak_ptr;
 using std::tr1::dynamic_pointer_cast;
 
-#elif defined __GNUC__ && !defined(__FreeBSD__)
+#elif defined __GNUC__ && !defined(__FreeBSD__) && !defined(_LIBCPP_VERSION)
 
 #include <tr1/memory>
 using std::tr1::shared_ptr;
@@ -29,7 +31,7 @@ using std::tr1::dynamic_pointer_cast;
 
 #define _stricmp strcasecmp
 
-#elif defined(__FreeBSD__)
+#elif defined(__FreeBSD__) || defined(_LIBCPP_VERSION)
 
 // Requires clang++ and libc++
 #include <memory>

@@ -38,7 +38,7 @@
 #  define BOOST_INCLUDE(x) <carve/external/boost/x>
 #endif
 
-#include <math.h>
+#include <cmath>
 
 #include <string>
 #include <set>

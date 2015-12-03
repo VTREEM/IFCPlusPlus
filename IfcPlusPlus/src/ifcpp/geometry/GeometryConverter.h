@@ -539,13 +539,16 @@ public:
 				// IfcPropertyReferenceValue, IfcPropertySingleValue, IfcPropertyTableValue))
 
 				shared_ptr<IfcIdentifier> property_name = simple_property->m_Name;
-				std::wstring name_str = property_name->m_value;
-				if( name_str.compare( L"LayerName" ) == 0 )
-				{
-					// TODO: implement layers
-				}
-				shared_ptr<IfcText> description = simple_property->m_Description;
-
+                if( property_name ) // BIMServer sometimes omit this
+                {
+                    std::wstring name_str = property_name->m_value;
+                    if( name_str.compare( L"LayerName" ) == 0 )
+                    {
+                        // TODO: implement layers
+                    }
+                }
+                
+				shared_ptr<IfcText> description = simple_property->m_Description; //optional
 
 				shared_ptr<IfcPropertySingleValue> property_single_value = dynamic_pointer_cast<IfcPropertySingleValue>( simple_property );
 				if( property_single_value )
